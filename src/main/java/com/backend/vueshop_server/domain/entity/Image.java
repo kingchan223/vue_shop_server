@@ -17,4 +17,8 @@ public class Image{
     private Long id;
     private int type;//1은 썸네일, 2는 제품이미지, 3은 제품 설명 이미지
     private String path;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="product_id")
+    private Product product;
 }

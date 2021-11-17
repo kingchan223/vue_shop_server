@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,13 +24,19 @@ public class Product{
     private String tags;
     private short outbound_days;
     private LocalDateTime created_date;
+
+    @Enumerated(EnumType.STRING)
+    private ActiveType activeType;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="seller_id")
     private Seller seller;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="category_id")
     private Category category;
-    @OneToOne
+
+    @OneToMany
     @JoinColumn(name="image_id")
-    private Image image;
+    private List<Image> images;
 }
