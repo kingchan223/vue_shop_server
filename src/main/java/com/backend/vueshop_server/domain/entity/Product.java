@@ -3,17 +3,19 @@ package com.backend.vueshop_server.domain.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Table(name="t_product")
+@Table(name = "t_product")
 @Entity
-public class Product{
+public class Product {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="product_id")
     private Long id;
@@ -24,6 +26,7 @@ public class Product{
     private String tags;
     private short outbound_days;
     private LocalDateTime created_date;
+    private String thumbnail_image_path;
 
     @Enumerated(EnumType.STRING)
     private ActiveType activeType;
@@ -38,5 +41,5 @@ public class Product{
 
     @OneToMany
     @JoinColumn(name="image_id")
-    private List<Image> images;
+    private List<Image> images = new ArrayList<>();
 }
