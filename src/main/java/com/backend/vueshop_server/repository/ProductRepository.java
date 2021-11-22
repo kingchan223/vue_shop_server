@@ -15,4 +15,24 @@ public class ProductRepository {
     public List<Product> findAll(){
         return em.createQuery("select p from Product p", Product.class).getResultList();
     }
+
+//           "select distinct o from Order o"
+//                   + " join fetch o.member m"//member는 To One이기 때문에 데이터 벙튀기 안된다.
+//                   + " join fetch o.delivery d"//delivery는 To One이기 때문에 데이터 벙튀기 안된다.
+//                   + " join fetch o.orderItems oi"
+//                   + " join fetch oi.item i", Order.class)
+
+    public List<Product> findById(Long id) {
+        return em.createQuery("select p from Product p"
+                        +" join fetch p.seller s"
+                        +" join fetch p.category c"
+                        +" join fetch p.images i"
+                        +"  where p.id=:id", Product.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+//    public Product findById(Long id) {
+//        return em.find(Product.class, id);
+//    }
 }

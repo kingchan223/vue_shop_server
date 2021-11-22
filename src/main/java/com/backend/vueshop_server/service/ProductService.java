@@ -1,5 +1,6 @@
 package com.backend.vueshop_server.service;
 
+import com.backend.vueshop_server.domain.dto.ProductDetailDto;
 import com.backend.vueshop_server.domain.dto.ProductListDto;
 import com.backend.vueshop_server.domain.entity.Product;
 import com.backend.vueshop_server.repository.ProductRepository;
@@ -24,4 +25,8 @@ public class ProductService {
         return productListDtos;
     }
 
+    public ProductDetailDto findById(Long id){
+        List<Product> products = productRepository.findById(id);
+        return ProductDetailDto.create(products.get(0));
+    }
 }

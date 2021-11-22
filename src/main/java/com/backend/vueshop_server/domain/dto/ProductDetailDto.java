@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,10 +21,10 @@ public class ProductDetailDto {
     private int add_delivery_price;
     private String tags;
     private short outbound_days;
-    private Seller seller;
-    private Category category;
+    private SellerDto seller;
+    private CategoryDto category;
     private ActiveType activeType;
-    private List<ImageDto> imageDtos;
+    private List<ImageDto> images;
 
     public static ProductDetailDto create(Product product){
         ProductDetailDto productDetailDto = new ProductDetailDto();
@@ -34,16 +35,11 @@ public class ProductDetailDto {
         productDetailDto.setAdd_delivery_price(product.getAdd_delivery_price());
         productDetailDto.setTags(product.getTags());
         productDetailDto.setOutbound_days(product.getOutbound_days());
-        productDetailDto.setSeller(product.getSeller());
-        productDetailDto.setCategory(product.getCategory());
+        productDetailDto.setSeller(SellerDto.create(product.getSeller()));
+        productDetailDto.setCategory(CategoryDto.create(product.getCategory()));
         productDetailDto.setActiveType(product.getActiveType());
-        List<Image> images = product.getImages();
-        List<ImageDto> imageDtos = new ArrayList<>();
-        for (Image img : images) {
-            ImageDto imageDto = ImageDto.create(img);
-            imageDtos.add(imageDto);
-        }
-        productDetailDto.setImageDtos(imageDtos);
+        List<ImageDto> imageDtos = product.getImages().stream().map(ImageDto::create).collect(Collectors.toList());
+        productDetailDto.setImages(imageDtos);
         return productDetailDto;
     }
 }
