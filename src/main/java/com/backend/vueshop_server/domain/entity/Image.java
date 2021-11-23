@@ -21,4 +21,33 @@ public class Image{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="product_id")
     private Product product;
+
+    public static Image create(int type, String path, Product product){
+        Image image = new Image();
+        image.setType(type);
+        image.setPath(path);
+        image.addProduct(product);
+        return image;
+    }
+
+    private void addProduct(Product product){
+        this.product = product;
+        product.getImages().add(this);
+    }
+
+    private void setId(Long id) {
+        this.id = id;
+    }
+
+    private void setType(int type) {
+        this.type = type;
+    }
+
+    private void setPath(String path) {
+        this.path = path;
+    }
+
+    private void setProduct(Product product) {
+        this.product = product;
+    }
 }

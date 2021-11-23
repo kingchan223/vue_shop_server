@@ -10,6 +10,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+//@NamedEntityGraph(name="Product.withSeller", attributeNodes = {@NamedAttributeNode("seller")})
+//@NamedEntityGraph(name="Product.withCategory", attributeNodes = {@NamedAttributeNode("category")})
+//@NamedEntityGraph(name="Product.withSeller", attributeNodes = {@NamedAttributeNode("seller")})
+//@NamedEntityGraph(name="Product.withImages", attributeNodes = {@NamedAttributeNode("images")})
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -39,7 +43,6 @@ public class Product {
     @JoinColumn(name="category_id")
     private Category category;
 
-    @OneToMany
-    @JoinColumn(name="image_id")
+    @OneToMany(mappedBy="product")
     private List<Image> images = new ArrayList<>();
 }

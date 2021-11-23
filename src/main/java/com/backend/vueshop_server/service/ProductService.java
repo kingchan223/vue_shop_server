@@ -29,4 +29,9 @@ public class ProductService {
         List<Product> products = productRepository.findById(id);
         return ProductDetailDto.create(products.get(0));
     }
+
+    public Product findByIdOG(Long id){
+        List<Product> products = productRepository.findById(id);
+        return products.get(0);
+    }
 }

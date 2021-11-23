@@ -31,7 +31,6 @@ public class ProductRepository {
                 .setParameter("id", id)
                 .getResultList();
     }
-
 //    public Product findById(Long id) {
 //        return em.find(Product.class, id);
 //    }
